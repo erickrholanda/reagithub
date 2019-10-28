@@ -1,0 +1,11 @@
+version: '3.5'
+services:
+  node:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    ports:
+      - 3000:3000
+    command: npm run start
+    volumes:
+      - ./app:/app
