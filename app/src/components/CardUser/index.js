@@ -1,34 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
+import IconButton from '@material-ui/core/IconButton';
 
 import './index.scss';
 export default function CardUser(props) {
     const { user } = props;
     const favorite = false;
     return (<Card className="card--user">
-            <CardMedia
-            style={{
-                height: 0,
-                paddingTop: '100%', // 16:9
-            }}
-            image={user.avatar_url}
-            title={user.login}
+                <CardHeader
+                avatar={
+                <Avatar aria-label="recipe">
+                    {favorite && <StarIcon />}
+                    {!favorite && <StarBorderIcon />}
+                </Avatar>
+                }
+                action={false}
+                title={user.login}
+                // subheader="September 14, 2016"
             />
-            <CardContent>
-                <p className="card--user--name">
-                    {favorite && <StarIcon fontSize={12}></StarIcon>}
-                    {!favorite && <StarBorderIcon fontSize={12}></StarBorderIcon>}
-                    <Link to={`/perfil/${user.login}`}>
-                    {user.login}
-                    </Link>
-                </p>
-            </CardContent>
+            <Link to={`/perfil/${user.login}`}>
+                <CardMedia
+                style={{
+                    height: 0,
+                    paddingTop: '100%', // 16:9
+                }}
+                image={user.avatar_url}
+                title={user.login}
+                />
+            </Link>
     </Card>)
 }
 /*
