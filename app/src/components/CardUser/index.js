@@ -1,23 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
-import IconButton from '@material-ui/core/IconButton';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardHeader from '@material-ui/core/CardHeader';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+// import CardContent from '@material-ui/core/CardContent';
+// import IconButton from '@material-ui/core/IconButton';
+// import CardActionArea from '@material-ui/core/CardActionArea';
+import { addFavorite, removeFavorite } from '../../actions';
 
 import './index.scss';
-export default function CardUser(props) {
+const CardUser = (props) => {
     const { user } = props;
-    const favorite = false;
+    const favorite = props.favorites.filter( fav => fav.id === user.id).length > 0;
+    const onClickAvatar = () => {
+        if (favorite) {
+            props.removeFavorite(user);
+        }
+        else {
+            props.addFavorite(user);
+        }
+    }
     return (<Card className="card--user">
                 <CardHeader
                 avatar={
-                <Avatar aria-label="recipe">
+                <Avatar onClick={onClickAvatar} aria-label="recipe">
                     {favorite && <StarIcon />}
                     {!favorite && <StarBorderIcon />}
                 </Avatar>
@@ -38,6 +49,13 @@ export default function CardUser(props) {
             </Link>
     </Card>)
 }
+const mapStateToProps = store => ({
+    favorites: store.users.favorites
+})
+
+const mapDispatchToProps = dispatch => 
+    bindActionCreators({ addFavorite, removeFavorite }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(CardUser);
 /*
 avatar_url: "https://avatars3.githubusercontent.com/u/4954?v=4"
 events_url: "https://api.github.com/users/erick/events{/privacy}"

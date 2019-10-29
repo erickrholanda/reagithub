@@ -16,8 +16,8 @@ import './index.scss'
 export default function Header () {
     return (<AppBar className="header" position="static">
         <Toolbar>
-            <Link to='/'><Typography variant="h6">Home</Typography></Link>
-            <Link to='/favoritos'><Typography variant="h6">Favoritos</Typography></Link>
+            <Link to='/'><Typography variant="body1">Home</Typography></Link>
+            <Link to='/favoritos'><Typography variant="body1">Favoritos</Typography></Link>
         </Toolbar>
     </AppBar>);
 }

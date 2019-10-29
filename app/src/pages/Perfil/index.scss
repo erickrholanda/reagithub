@@ -1,0 +1,22 @@
+.page--perfil {
+    img {
+        max-width: 100%;
+        border-radius: 5px;
+    }
+
+    .user--info {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        text-align: left;
+    }
+
+    .repo--user {
+        text-align: left;
+
+        a {
+            text-decoration: none;
+            color: #3f51b5;
+        }
+    }
+}
